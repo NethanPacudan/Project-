@@ -1,0 +1,47 @@
+# Simple inventory management system
+
+# Initialize user data and inventory
+users = {}
+inventory = {}
+
+def register(username, password):
+    if username in users:
+        return "Username already exists."
+    users[username] = password
+    return "User registered successfully!"
+
+def login(username, password):
+    if username in users and users[username] == password:
+        return "Login successful!"
+    return "Invalid username or password."
+
+def add_item(item, quantity):
+    if item in inventory:
+        inventory[item] += quantity
+    else:
+        inventory[item] = quantity
+    return f"{quantity} of {item} added to inventory."
+
+def remove_item(item, quantity):
+    if item in inventory:
+        if inventory[item] >= quantity:
+            inventory[item] -= quantity
+            if inventory[item] == 0:
+                del inventory[item]
+            return f"{quantity} of {item} removed from inventory."
+        return "Not enough stock to remove."
+    return "Item not found in inventory."
+
+def view_inventory():
+    if inventory:
+        return inventory
+    return "The inventory is empty."
+
+# Example usage
+print(register("user1", "pass123"))
+print(login("user1", "pass123"))
+print(add_item("apple", 10))
+print(add_item("banana", 5))
+print(view_inventory())
+print(remove_item("apple", 5))
+print(view_inventory())
